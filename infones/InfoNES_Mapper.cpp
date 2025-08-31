@@ -27,15 +27,17 @@ BYTE DRAM[DRAM_SIZE];
 /*  Table of Mapper initialize function                              */
 /*-------------------------------------------------------------------*/
 
-struct MapperTable_tag MapperTable[] =
+const struct MapperTable_tag MapperTable[] =
     {
         {0, Map0_Init},
         {1, Map1_Init},
         {2, Map2_Init},
         {3, Map3_Init},
         {4, Map4_Init},
-        //        {5, Map5_Init},
-        {6, Map6_Init},
+#if NES_MAPPER_5_ENABLED == 1
+        {5, Map5_Init},
+#endif
+        // {6, Map6_Init},
         {7, Map7_Init},
         {8, Map8_Init},
         {9, Map9_Init},
@@ -178,7 +180,7 @@ struct MapperTable_tag MapperTable[] =
 #include "mapper/InfoNES_Mapper_003.cpp"
 #include "mapper/InfoNES_Mapper_004.cpp"
 #include "mapper/InfoNES_Mapper_005.cpp"
-#include "mapper/InfoNES_Mapper_006.cpp"
+// #include "mapper/InfoNES_Mapper_006.cpp"
 #include "mapper/InfoNES_Mapper_007.cpp"
 #include "mapper/InfoNES_Mapper_008.cpp"
 #include "mapper/InfoNES_Mapper_009.cpp"

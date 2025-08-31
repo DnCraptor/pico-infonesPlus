@@ -1,10 +1,10 @@
 :
 # ====================================================================================
-# PICO-INFONESPLUS build script with alternate configuration and debug enabled
+# PICO-INFONESPLUS build script in DEBUG configuration
 # Builds the emulator for use with the
-# Adafruit Feather RP2040 DVI
-# and the 
-# Adafruit microSD Card FeatherWing
+# Waveshare RP2040-PiZero
+# https://www.waveshare.com/rp2040-pizero.htm
 # ====================================================================================
 cd `dirname $0` || exit 1
-./bld.sh -c 3 -d
+./bld.sh -c 4 -d
+

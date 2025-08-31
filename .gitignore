@@ -1,4 +1,6 @@
+*Zone.Identifier
 fh.log
+CMakePresets.json
 /pimoroni-pico/
 # Prerequisites
 *.d
@@ -261,7 +263,6 @@ _pkginfo.txt
 # but keep track of directories ending in .cache
 !?*.[Cc]ache/
 
-# Others
 ClientBin/
 ~$*
 *~
@@ -390,3 +391,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/.github/chatmodes/
