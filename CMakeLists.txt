@@ -21,8 +21,8 @@ include(pico_sdk_import.cmake)
 set(projectname piconesPlus)
 pico_sdk_init()
 
-set (m1p2launcher ON)
-set (MURM20 ON)
+#set (m1p2launcher ON)
+#set (MURM20 ON)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
