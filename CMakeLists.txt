@@ -21,6 +21,9 @@ include(pico_sdk_import.cmake)
 set(projectname piconesPlus)
 pico_sdk_init()
 
+set (m1p2launcher ON)
+set (MURM20 ON)
+
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -95,6 +98,14 @@ add_definitions( -DNDEBUG )
 
 #include(${USERHOME}/.pico-sdk/sdk/2.2.0/lib/tinyusb/hw/bsp/family_support.cmake)
 project(${projectname} C CXX ASM)
+SET(BUILD_NAME "${PROJECT_NAME}")
+
+set(OUTPUT_DIR "${CMAKE_SOURCE_DIR}/bin/${PICO_PLATFORM}/${CMAKE_BUILD_TYPE}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${OUTPUT_DIR}")
+
+
 # NOTE: pico_sdk_import.cmake is imported by family_initialize_project()
 #       family_initialize_project() also calls pico_sdk_init().
 #       latest master branch of pico-sdk is required for PIO USB support.
@@ -236,8 +247,27 @@ endif()
     add_subdirectory(pico_lib/util)
     add_subdirectory(pico_shared)
     add_subdirectory(tusb_xinput xinput_host)
+
+    if (m1p2launcher)
+        if (MURM20)
+            set(BUILD_NAME "${BUILD_NAME}.m2p2")
+        else ()
+            set(BUILD_NAME "${BUILD_NAME}.m1p2")
+        endif ()
+        pico_set_linker_script(${PROJECT_NAME} "${CMAKE_SOURCE_DIR}/memmap12.ld")
+        set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${BUILD_NAME}")
+    endif ()
+
+
     target_link_options(${projectname} PRIVATE -Xlinker --print-memory-usage --data-sections)
     pico_add_extra_outputs(${projectname})
 
 
+    if (m1p2launcher)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E rename
+            "${OUTPUT_DIR}/${BUILD_NAME}.uf2"
+            "${OUTPUT_DIR}/${BUILD_NAME}"
+        )
+    endif ()
 
